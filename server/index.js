@@ -4,10 +4,11 @@ dotenv.config()
 import userModel from "./model/user.js"
 import connectDB from "./config/db.js"
 import bcrypt from "bcrypt"
-
+import cors from "cors"
 const app = express()
 
 app.use(express.json())
+app.use(cors())
 connectDB()
 const PORT = 8080
 
@@ -44,10 +45,6 @@ app.get("/getAllUsers", async (req, res) => {
         console.log(error)
     }
 })
-
-
-
-
 
 
 
