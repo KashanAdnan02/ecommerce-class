@@ -1,15 +1,21 @@
 import express from "express"
+// Env = Enviroment Variabe // dotenv
 import dotenv from "dotenv"
+// pehchan lta he konsi file .env ki he or us file ka data har files me phuncha deta he
 dotenv.config()
 import userModel from "./model/user.js"
 import connectDB from "./config/db.js"
 import bcrypt from "bcrypt"
-import cors from "cors"
+// import cors from "cors"
 const app = express()
 
+
+// take api se data wo convert json me karde
 app.use(express.json())
-app.use(cors())
+// app.use(cors())
+
 connectDB()
+// Port Jisme Hamara Server listen karahah hota he
 const PORT = 8080
 
 
@@ -49,7 +55,7 @@ app.get("/getAllUsers", async (req, res) => {
 
 
 
-
+//
 app.listen(PORT, () => {
     console.log("Server is running!")
 })

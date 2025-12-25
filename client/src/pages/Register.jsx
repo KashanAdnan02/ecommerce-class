@@ -19,11 +19,13 @@ const Register = () => {
 
         console.log(data)
     }
+
+    
     return (
-        <div class="container">
-            <div class="tabs">
-                <button class="tab active">Login</button>
-                <button class="tab">Sign Up</button>
+        <div className="container">
+            <div className="tabs">
+                <button className="tab active">Login</button>
+                <button className="tab">Sign Up</button>
             </div>
 
             <form onSubmit={(e) => submit(e)} id="loginForm">
@@ -35,26 +37,26 @@ const Register = () => {
                 <label>Phone Number</label>
                 <input onChange={(e) => setPhone(e.target.value)} type="number" placeholder="Enter your phone number" required />
 
-                <div class="password-header">
+                <div className="password-header">
                     <label>Password</label>
-                    <a href="#" class="forgot">Forgot password?</a>
+                    <a href="#" className="forgot">Forgot password?</a>
                 </div>
 
-                <div class="password-box">
+                <div className="password-box">
                     <input onChange={(e) => setPassword(e.target.value)} type="password" id="password" placeholder="Enter your password" required />
                     <span id="togglePassword">👁</span>
                 </div>
 
-                <button type="submit" class="login-btn">Sign Up</button>
+                <button type="submit" className="login-btn">Sign Up</button>
             </form>
 
-            <div class="divider">OR</div>
+            <div className="divider">OR</div>
 
-            <div class="social-login">
-                <button class="social google">Continue with Google</button>
+            <div className="social-login">
+                <button className="social google">Continue with Google</button>
             </div>
 
-            <p class="signup-text">
+            <p className="signup-text">
                 Don’t have an account yet? <a href="./index.html">Sign up</a>
             </p>
         </div>
