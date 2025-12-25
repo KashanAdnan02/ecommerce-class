@@ -1,31 +1,38 @@
 import React, { useState } from 'react'
 import "./Register.css"
+import { Link } from 'react-router-dom'
 import axios from "axios"
-const Register = () => {
+import toast from "react-hot-toast"
+import { useNavigate } from 'react-router-dom'
 
+const Register = () => {
     const [name, setName] = useState("")
     const [phone, setPhone] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-
+    const navigate = useNavigate()
     async function submit(e) {
         e.preventDefault()
-        const data = await axios.post("http://localhost:8080/register", {
-            name,
-            email,
-            password,
-            phone
-        })
-
-        console.log(data)
+        try {
+            const data = await axios.post("http://localhost:8080/register", {
+                name,
+                email,
+                password,
+                phone
+            })
+            toast.success('Successfully regisered!')
+            navigate("/login")
+        } catch (error) {
+            toast.error("please try again later!")
+        }
     }
 
-    
+
     return (
         <div className="container">
             <div className="tabs">
-                <button className="tab active">Login</button>
-                <button className="tab">Sign Up</button>
+                <Link to={"/login"}><button className="tab ">Login</button></Link>
+                <Link to={"/"}><button className="tab active">Sign Up</button></Link>
             </div>
 
             <form onSubmit={(e) => submit(e)} id="loginForm">
@@ -39,12 +46,10 @@ const Register = () => {
 
                 <div className="password-header">
                     <label>Password</label>
-                    <a href="#" className="forgot">Forgot password?</a>
                 </div>
 
                 <div className="password-box">
                     <input onChange={(e) => setPassword(e.target.value)} type="password" id="password" placeholder="Enter your password" required />
-                    <span id="togglePassword">👁</span>
                 </div>
 
                 <button type="submit" className="login-btn">Sign Up</button>
@@ -57,7 +62,7 @@ const Register = () => {
             </div>
 
             <p className="signup-text">
-                Don’t have an account yet? <a href="./index.html">Sign up</a>
+                Have an account yet? <Link to="/login">Login</Link>
             </p>
         </div>
     )

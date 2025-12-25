@@ -6,13 +6,13 @@ dotenv.config()
 import userModel from "./model/user.js"
 import connectDB from "./config/db.js"
 import bcrypt from "bcrypt"
-// import cors from "cors"
+import cors from "cors"
 const app = express()
 
 
 // take api se data wo convert json me karde
 app.use(express.json())
-// app.use(cors())
+app.use(cors())
 
 connectDB()
 // Port Jisme Hamara Server listen karahah hota he
@@ -20,9 +20,10 @@ const PORT = 8080
 
 
 // Making Api's
-
+// Register POST
 app.post("/register", async (req, res) => {
     try {
+        // password hash password 
         const hashedPassword = await bcrypt.hash(req.body.password, 10)
         const user = await userModel.create({
             name: req.body.name,
@@ -34,6 +35,34 @@ app.post("/register", async (req, res) => {
             message: "User registered!",
             data: user
         })
+
+    } catch (error) {
+        console.log(error)
+    }
+})
+app.post("/login", async (req, res) => {
+    try {
+
+
+        const user = await userModel.findOne({ email: req.body.email })
+        if (user) {
+            const comparePasswd = await bcrypt.compare(req.body.password, user.password) // true //false
+
+            if (comparePasswd === false) {
+                res.status(400).json({
+                    message: "email and password is not correct!"
+                })
+            } else {
+                res.json({
+                    message: "User succesfully login!",
+                    data: user
+                })
+            }
+        } else {
+            res.status(400).json({
+                message: "email and password is not correct!"
+            })
+        }
 
     } catch (error) {
         console.log(error)
@@ -53,9 +82,6 @@ app.get("/getAllUsers", async (req, res) => {
 })
 
 
-
-
-//
 app.listen(PORT, () => {
     console.log("Server is running!")
 })
