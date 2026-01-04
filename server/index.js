@@ -4,6 +4,7 @@ import dotenv from "dotenv"
 // pehchan lta he konsi file .env ki he or us file ka data har files me phuncha deta he
 dotenv.config()
 import userModel from "./model/user.js"
+import productModel from "./model/product.js"
 import connectDB from "./config/db.js"
 import bcrypt from "bcrypt"
 import cors from "cors"
@@ -80,7 +81,18 @@ app.get("/getAllUsers", async (req, res) => {
         console.log(error)
     }
 })
+app.post("/createProduct", async (req, res) => {
+    try {
+        let body = req.body
+        console.log(body);
+        await productModel.create(body)
+        res.send("Product Created Succesfully!")
 
+    } catch (error) {
+        console.log(error);
+
+    }
+})
 
 app.listen(PORT, () => {
     console.log("Server is running!")

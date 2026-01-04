@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Register from './pages/Register'
 import Login from './pages/Login'
 import { Toaster } from "react-hot-toast"
+import Product from './pages/Product'
 
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Register />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/products' element={<Product />} />
       </Routes>
       <Toaster />
     </BrowserRouter>

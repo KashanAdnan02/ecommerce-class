@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import "./Register.css"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from "axios"
 import toast from "react-hot-toast"
 
@@ -8,7 +8,7 @@ import toast from "react-hot-toast"
 const Login = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-
+  const navigate = useNavigate()
   async function submit(e) {
     e.preventDefault()
     try {
@@ -17,6 +17,7 @@ const Login = () => {
         password
       })
       toast.success('Successfully logged in!')
+      navigate("/products")
       console.log(data)
     } catch (error) {
       toast.error(error.response.data.message)
